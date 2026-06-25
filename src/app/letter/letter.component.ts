@@ -114,10 +114,20 @@ export class LetterComponent implements AfterViewInit, OnDestroy {
     if (scrollCue) {
       this.timer(700 + textEls.length * 150 + 200, () => scrollCue.classList.add('visible'));
     }
+
+    // 5) Gallery polaroid cards — staggered ngay lập tức, ko cần scroll
+    const cards = root.querySelectorAll<HTMLElement>('.polaroid-card');
+    cards.forEach((card, i) => {
+      const rot = (card as HTMLElement).dataset['rotation'] ?? '0';
+      this.timer(900 + i * 80, () => {
+        (card as HTMLElement).classList.add('visible');
+        (card as HTMLElement).style.transform = `rotate(${rot}deg)`;
+      });
+    });
   }
 
   /* ----------------------------------------------------------------
-     Scroll-triggered reveal for sections & polaroid cards
+     Scroll-triggered reveal for sections
      ---------------------------------------------------------------- */
   private initScrollReveal(): void {
     const root = this.elRef.nativeElement;
@@ -126,31 +136,9 @@ export class LetterComponent implements AfterViewInit, OnDestroy {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-
           const el = entry.target as HTMLElement;
-
-          // Section reveal
           if (el.classList.contains('section-reveal')) {
             el.classList.add('visible');
-            this.observer.unobserve(el);
-            return;
-          }
-
-          // Gallery card reveal (staggered)
-          if (el.classList.contains('polaroid-card')) {
-            const grid = root.querySelector<HTMLElement>('#galleryGrid');
-            const cards = grid
-              ? Array.from(grid.querySelectorAll<HTMLElement>('.polaroid-card'))
-              : [];
-            const idx = cards.indexOf(el);
-            const delay = idx * 100;
-            const rot = el.dataset['rotation'] ?? '0';
-
-            setTimeout(() => {
-              el.classList.add('visible');
-              el.style.transform = `rotate(${rot}deg)`;
-            }, delay);
-
             this.observer.unobserve(el);
           }
         });
@@ -158,13 +146,7 @@ export class LetterComponent implements AfterViewInit, OnDestroy {
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
 
-    // Observe sections
     root.querySelectorAll<HTMLElement>('.section-reveal').forEach((el) =>
-      this.observer.observe(el)
-    );
-
-    // Observe gallery cards
-    root.querySelectorAll<HTMLElement>('.polaroid-card').forEach((el) =>
       this.observer.observe(el)
     );
   }
