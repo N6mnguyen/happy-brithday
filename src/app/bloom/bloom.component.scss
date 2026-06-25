@@ -1,0 +1,863 @@
+// ================================================================
+// TOKENS — soft pink rose palette (no dark / no gold)
+// ================================================================
+$pink-light  : #fff0f7;
+$pink-soft   : #ffd6e7;
+$pink-blush  : #ffb6d0;
+$pink-rose   : #ff8cb0;
+$pink-hot    : #e85880;
+$pink-deep   : #d44a7a;
+$pink-wine   : #b83060;
+$pink-mist   : rgba(255, 182, 208, 0.15);
+$white       : #fff9fc;
+
+// ================================================================
+// HOST
+// ================================================================
+:host {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+// ================================================================
+// LIGHT RAYS — rotating beams from center
+// ================================================================
+.light-rays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(255, 182, 208, 0.04) 10deg,
+      transparent 20deg,
+      rgba(255, 140, 176, 0.03) 40deg,
+      transparent 60deg,
+      rgba(255, 214, 231, 0.05) 80deg,
+      transparent 100deg,
+      rgba(255, 182, 208, 0.04) 120deg,
+      transparent 150deg,
+      rgba(255, 140, 176, 0.03) 180deg,
+      transparent 200deg,
+      rgba(255, 214, 231, 0.04) 240deg,
+      transparent 270deg,
+      rgba(255, 182, 208, 0.03) 300deg,
+      transparent 330deg,
+      transparent 360deg
+    );
+  animation: lightRaysRotate 12s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes lightRaysRotate {
+  from { transform: rotate(0deg) scale(1.5); }
+  to   { transform: rotate(360deg) scale(1.5); }
+}
+
+// ================================================================
+// SHIMMER SWEEP
+// ================================================================
+.shimmer-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 70%
+  );
+  animation: shimmerSweep 4s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  20%  { opacity: 0.6; }
+  40%  { opacity: 0; }
+  100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+}
+
+// ================================================================
+// TWINKLING SPARKLE STARS
+// ================================================================
+.sparkle-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.s-star {
+  position: absolute;
+  width: var(--ss-size, 6px);
+  height: var(--ss-size, 6px);
+  opacity: 0;
+  animation: starTwinkle var(--ss-dur, 2s) var(--ss-delay, 0s) ease-in-out infinite;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: var(--ss-color, #fff);
+    border-radius: 50%;
+  }
+
+  // Cross shape
+  &::before {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    box-shadow: 0 0 4px 1px var(--ss-color, #fff);
+  }
+  &::after {
+    width: 2px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 4px 1px var(--ss-color, #fff);
+  }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3); }
+  30%  { opacity: 0.9; transform: scale(1); }
+  60%  { opacity: 0.4; transform: scale(0.7); }
+}
+
+// ================================================================
+// STAGE — soft pink gradient background
+// ================================================================
+.bloom-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 50% 30%, $pink-soft 0%, $pink-light 50%, #fff5fa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+// ================================================================
+// AMBIENT GLOWS — soft pink orbs
+// ================================================================
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%, $pink-mist 0%, transparent 70%);
+  animation: bgPulse 5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes bgPulse {
+  0%   { opacity: 0.4; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  animation: orbFloat 8s ease-in-out infinite alternate;
+  opacity: 0.25;
+}
+
+.bg-orb-1 {
+  width: 500px; height: 500px;
+  top: -10%; left: -5%;
+  background: radial-gradient(circle, rgba(255, 182, 208, 0.3) 0%, transparent 70%);
+  animation-duration: 10s;
+}
+
+.bg-orb-2 {
+  width: 400px; height: 400px;
+  bottom: -10%; right: -5%;
+  background: radial-gradient(circle, rgba(255, 140, 176, 0.25) 0%, transparent 70%);
+  animation-duration: 8s;
+  animation-delay: -3s;
+}
+
+.bg-orb-3 {
+  width: 300px; height: 300px;
+  top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 214, 231, 0.35) 0%, transparent 70%);
+  animation-duration: 6s;
+  animation-delay: -1s;
+}
+
+.bg-orb-4 {
+  width: 200px; height: 200px;
+  top: 70%; left: 20%;
+  background: radial-gradient(circle, rgba(232, 88, 128, 0.15) 0%, transparent 70%);
+  animation-duration: 9s;
+  animation-delay: -5s;
+}
+
+@keyframes orbFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(25px, -20px) scale(1.2); }
+}
+
+// ================================================================
+// BACKGROUND FLOATING PETALS
+// ================================================================
+.bg-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bg-petal {
+  position: absolute;
+  top: -30px;
+  left: var(--bp-x, 50%);
+  width: var(--bp-size, 12px);
+  height: calc(var(--bp-size, 12px) * 1.4);
+  background: var(--bp-color, $pink-blush);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  animation: bgPetalDrift var(--bp-dur, 8s) var(--bp-delay, 0s) ease-in infinite;
+  filter: drop-shadow(0 2px 4px rgba(232, 88, 128, 0.15));
+}
+
+@keyframes bgPetalDrift {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg) scale(0.5); }
+  10%  { opacity: 0.6; transform: translateY(5vh) translateX(10px) rotate(30deg) scale(1); }
+  50%  { opacity: 0.5; transform: translateY(45vh) translateX(-15px) rotate(120deg) scale(0.9); }
+  90%  { opacity: 0.2; transform: translateY(85vh) translateX(10px) rotate(250deg) scale(0.7); }
+  100% { opacity: 0; transform: translateY(105vh) translateX(-5px) rotate(300deg) scale(0.3); }
+}
+
+// ================================================================
+// HEART PARTICLES
+// ================================================================
+.heart-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.h-particle {
+  position: absolute;
+  top: var(--hy, 50%);
+  left: var(--hx, 50%);
+  width: var(--h-size, 14px);
+  height: var(--h-size, 14px);
+  opacity: 0;
+  animation: heartFloat var(--h-dur, 4s) var(--h-delay, 0s) ease-in-out infinite;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 80%;
+    background: #ff8cb0;
+    border-radius: 50% 50% 0 0;
+  }
+
+  &::before {
+    left: 50%;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+
+  &::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+}
+
+@keyframes heartFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0) rotate(0deg); }
+  15%  { opacity: 0.8; transform: translateY(-20px) scale(1) rotate(10deg); }
+  50%  { opacity: 0.5; transform: translateY(-60px) scale(0.8) rotate(-5deg); }
+  100% { opacity: 0; transform: translateY(-120px) scale(0) rotate(20deg); }
+}
+
+// ================================================================
+// 3D ROSE — centerpiece ✨
+// ================================================================
+.hero-rose-wrap {
+  position: absolute;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
+  height: 280px;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &.fade-out {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+// 3D Rose container
+.rose-3d-container {
+  position: relative;
+  width: 260px;
+  height: 280px;
+  transform-style: preserve-3d;
+  animation: roseFloat 4s ease-in-out infinite alternate;
+  z-index: 10;
+}
+
+@keyframes roseFloat {
+  0%   { transform: rotateX(-5deg) rotateY(-10deg); }
+  100% { transform: rotateX(5deg)  rotateY(10deg); }
+}
+
+// 3D Petal
+.petal-3d {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: var(--pw, 40px);
+  height: var(--ph, 65px);
+  margin-left: calc(var(--pw, 40px) / -2);
+  margin-bottom: calc(var(--ph, 65px) / -2);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  background: var(--pg);
+  box-shadow: inset 0 -4px 8px rgba(30, 5, 15, 0.25), 0 0 6px rgba(193, 69, 107, 0.15);
+
+  transform:
+    rotateY(var(--ry, 0deg))
+    rotateX(calc(var(--rx-closed, 15deg)))
+    translateZ(var(--tz, 0px));
+  animation: petalBloom3D var(--pdur, 2s) var(--pdelay, 0s) cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+@keyframes petalBloom3D {
+  0% {
+    transform:
+      rotateY(var(--ry, 0deg))
+      rotateX(calc(var(--rx-closed, 15deg)))
+      translateZ(var(--tz, 0px))
+      scale(0.3);
+    opacity: 0;
+    filter: brightness(0.5);
+  }
+  30% {
+    opacity: 1;
+    filter: brightness(0.8);
+  }
+  100% {
+    transform:
+      rotateY(var(--ry, 0deg))
+      rotateX(calc(var(--rx-open, 60deg)))
+      translateZ(var(--tz, 0px))
+      scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+// ----------------------------------------------------------------
+// Hero glow
+// ----------------------------------------------------------------
+.hero-glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 182, 208, 0.25) 0%, rgba(255, 140, 176, 0.1) 30%, rgba(232, 88, 128, 0.04) 55%, transparent 75%);
+  filter: blur(60px);
+  animation: heroGlowPulse 2.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes heroGlowPulse {
+  0%   { transform: scale(0.7); opacity: 0.3; }
+  50%  { transform: scale(1.3); opacity: 0.8; }
+  100% { transform: scale(0.8); opacity: 0.4; }
+}
+
+// ----------------------------------------------------------------
+// Hero expanding ring
+// ----------------------------------------------------------------
+.hero-ring {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 182, 208, 0.3);
+  opacity: 0;
+  pointer-events: none;
+
+  &.pulse {
+    animation: heroRingPulse 1.2s ease-out forwards;
+  }
+}
+
+@keyframes heroRingPulse {
+  0%   { transform: scale(0.8); opacity: 0.8; border-width: 2px; }
+  100% { transform: scale(3);   opacity: 0;   border-width: 0.5px; }
+}
+
+// ----------------------------------------------------------------
+// Flower bouquets floating around hero rose
+// ----------------------------------------------------------------
+.bouquets {
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.bouquet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 50px;
+  opacity: 0;
+  animation: bouquetFloat var(--bq-dur, 4s) var(--bq-delay, 0s) ease-in-out infinite;
+
+  .bq-flower {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    transform: translate(-50%, 0) rotate(var(--f-angle, 0deg)) translateY(var(--f-dist, 6px));
+    animation: bqFlowerBloom 0.6s var(--f-delay, 0s) ease-out both;
+  }
+}
+
+.bq-petal-ring {
+  position: absolute;
+  inset: 0;
+
+  .bq-petal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 10px;
+    background: radial-gradient(
+      ellipse at 40% 30%,
+      var(--f-color, #ffb6d0) 0%,
+      #e85880 60%,
+      #b83060 100%
+    );
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform-origin: bottom center;
+    transform:
+      translate(-50%, -100%)
+      rotate(var(--p-angle, 0deg))
+      scale(var(--p-scale, 1));
+    box-shadow: inset 0 -1px 2px rgba(120, 20, 50, 0.2);
+  }
+}
+
+.bq-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff8cb0 0%, #d44a7a 100%);
+  z-index: 2;
+}
+
+.bq-ribbon {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 12px;
+  background: radial-gradient(ellipse at 50% 0%, #ff8cb0 0%, #d44a7a 100%);
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 50% 75%, 20% 100%);
+  opacity: 0.8;
+}
+
+@keyframes bouquetFloat {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  15%  { opacity: 0.9; transform: translate(calc(-50% + var(--bq-x, 0px)), calc(-50% + var(--bq-y, 0px))) scale(1); }
+  70%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--bq-x2, 0px)), calc(-50% + var(--bq-y2, 0px))) scale(0.5); }
+}
+
+@keyframes bqFlowerBloom {
+  from { transform: translate(-50%, 0) rotate(var(--f-angle, 0deg)) translateY(var(--f-dist, 6px)) scale(0); opacity: 0; }
+  to   { transform: translate(-50%, 0) rotate(var(--f-angle, 0deg)) translateY(var(--f-dist, 6px)) scale(1); opacity: 1; }
+}
+
+// ================================================================
+// CSS 3D ROSE — 5 layers for depth
+// ================================================================
+.css-rose {
+  position: relative;
+  width: 1em;
+  height: 1em;
+}
+
+.rose-layer {
+  position: absolute;
+  inset: 0;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform-origin: bottom center;
+    transform:
+      translate(-50%, -100%)
+      rotate(var(--angle, 0deg))
+      scale(0);
+    animation: petalOpen 0.9s var(--petal-delay, 0s) cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  }
+}
+
+// Outer petals (largest, lightest pink)
+.rose-layer.outer span {
+  width: calc(0.6em * var(--petal-scale, 1));
+  height: calc(0.95em * var(--petal-scale, 1));
+  background: radial-gradient(
+    ellipse at 40% 30%,
+    #fff0f7 0%,
+    #ffd6e7 25%,
+    #ffb6d0 55%,
+    #e85880 100%
+  );
+  box-shadow: inset 0 -4px 8px rgba(184, 48, 96, 0.1);
+}
+
+// Mid-outer petals
+.rose-layer.mid-outer span {
+  width: calc(0.52em * var(--petal-scale, 1));
+  height: calc(0.88em * var(--petal-scale, 1));
+  background: radial-gradient(
+    ellipse at 40% 30%,
+    #ffd6e7 0%,
+    #ffb6d0 20%,
+    #ff8cb0 50%,
+    #d44a7a 100%
+  );
+  box-shadow: inset 0 -3px 6px rgba(184, 48, 96, 0.12);
+}
+
+// Mid petals
+.rose-layer.mid span {
+  width: calc(0.48em * var(--petal-scale, 1));
+  height: calc(0.82em * var(--petal-scale, 1));
+  background: radial-gradient(
+    ellipse at 40% 25%,
+    #ffc8dd 0%,
+    #ff8cb0 25%,
+    #e85880 55%,
+    #d44a7a 100%
+  );
+  box-shadow: inset 0 -3px 6px rgba(184, 48, 96, 0.15);
+}
+
+// Mid-inner petals
+.rose-layer.mid-inner span {
+  width: calc(0.42em * var(--petal-scale, 1));
+  height: calc(0.76em * var(--petal-scale, 1));
+  background: radial-gradient(
+    ellipse at 40% 25%,
+    #ffb6d0 0%,
+    #e85880 35%,
+    #d44a7a 70%,
+    #b83060 100%
+  );
+  box-shadow: inset 0 -3px 6px rgba(120, 20, 50, 0.15);
+}
+
+// Inner petals (smallest, deepest pink)
+.rose-layer.inner span {
+  width: calc(0.38em * var(--petal-scale, 1));
+  height: calc(0.7em * var(--petal-scale, 1));
+  background: radial-gradient(
+    ellipse at 40% 25%,
+    #ff8cb0 0%,
+    #d44a7a 30%,
+    #b83060 65%,
+    #8a2040 100%
+  );
+  box-shadow: inset 0 -2px 4px rgba(80, 10, 30, 0.2);
+}
+
+@keyframes petalOpen {
+  from {
+    transform: translate(-50%, -100%) rotate(var(--angle, 0deg)) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -100%) rotate(var(--angle, 0deg)) scale(var(--petal-scale, 1));
+    opacity: 1;
+  }
+}
+
+// Rose core (pink center, not gold)
+.rose-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.2em;
+  height: 0.2em;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff8cb0 0%, #d44a7a 60%, #b83060 100%);
+  box-shadow: 0 0 0.08em 0.04em rgba(212, 74, 122, 0.4);
+  animation: coreAppear 0.5s 0.9s both;
+}
+
+@keyframes coreAppear {
+  from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+// ================================================================
+// CURTAIN PANELS — pink rose garden curtains
+// ================================================================
+.curtain {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 20;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.6s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.open {
+    transition: transform 1.6s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.4s ease 1.2s;
+    opacity: 0;
+  }
+}
+
+.curtain-left {
+  left: 0;
+  background: linear-gradient(to right,
+    $pink-light 0%,
+    $pink-soft 40%,
+    $pink-blush 100%
+  );
+  transform-origin: left center;
+
+  &.open {
+    transform: translateX(-100%);
+  }
+}
+
+.curtain-right {
+  right: 0;
+  background: linear-gradient(to left,
+    $pink-light 0%,
+    $pink-soft 40%,
+    $pink-blush 100%
+  );
+  transform-origin: right center;
+
+  &.open {
+    transform: translateX(100%);
+  }
+}
+
+// Vine overlay on curtains
+.curtain-vines {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 30% 80% at 20% 30%, rgba(255, 140, 176, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 20% 60% at 80% 70%, rgba(232, 88, 128, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 25% 50% at 50% 20%, rgba(255, 182, 208, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 2;
+  animation: vineShimmer 5s ease-in-out infinite alternate;
+}
+
+@keyframes vineShimmer {
+  0%   { opacity: 0.4; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
+
+// ----------------------------------------------------------------
+// Curtain rose grid
+// ----------------------------------------------------------------
+.curtain-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  padding: 1.5rem;
+  gap: 0.6rem;
+}
+
+.c-rose-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(var(--ox, 0), var(--oy, 0)) rotate(var(--rose-rot, 0deg));
+
+  .c-rose {
+    animation-delay: var(--bloom-delay, 0s);
+    animation-name: curtainRoseBloom;
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.34, 1.5, 0.64, 1);
+
+    .rose-layer span {
+      animation-name: petalOpen;
+    }
+  }
+}
+
+@keyframes curtainRoseBloom {
+  from { transform: scale(0) rotate(-20deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+
+.c-rose {
+  filter: drop-shadow(0 0 6px rgba(212, 74, 122, 0.2))
+          drop-shadow(0 0 15px rgba(255, 182, 208, 0.1));
+}
+
+// ================================================================
+// FALLING PETALS OVERLAY
+// ================================================================
+.falling-petals-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 35;
+}
+
+.fall-petal {
+  position: absolute;
+  top: -25px;
+  left: var(--fp-x, 20%);
+  width: var(--fp-size, 12px);
+  height: calc(var(--fp-size, 12px) * 1.5);
+  background: var(--fp-color, $pink-blush);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  animation: petalFallDown var(--fp-dur, 4s) var(--fp-delay, 0s) ease-in infinite;
+  filter: drop-shadow(0 2px 4px rgba(232, 88, 128, 0.1));
+}
+
+@keyframes petalFallDown {
+  0%   { opacity: 0;   transform: translateY(0)    translateX(0) rotate(0deg); }
+  8%   { opacity: 0.7; }
+  50%  { opacity: 0.5; transform: translateY(50vh) translateX(20px) rotate(120deg); }
+  85%  { opacity: 0.3; }
+  100% { opacity: 0;   transform: translateY(110vh) translateX(-15px) rotate(240deg); }
+}
+
+// ================================================================
+// CENTRE SPLIT VINE
+// ================================================================
+.split-vine {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 182, 208, 0.3) 20%,
+    rgba(232, 88, 128, 0.5) 40%,
+    rgba(255, 140, 176, 0.7) 50%,
+    rgba(232, 88, 128, 0.5) 60%,
+    rgba(255, 182, 208, 0.3) 80%,
+    transparent 100%
+  );
+  z-index: 25;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: splitVineAppear 0.6s 1.4s ease forwards;
+  box-shadow: 0 0 15px 6px rgba(255, 182, 208, 0.15);
+}
+
+@keyframes splitVineAppear {
+  from { opacity: 0; transform: translateX(-50%) scaleY(0.3); }
+  to   { opacity: 0.6; transform: translateX(-50%) scaleY(1); }
+}
+
+// ================================================================
+// RESPONSIVE
+// ================================================================
+@media (max-width: 768px) {
+  .hero-rose { font-size: clamp(3.5rem, 12vw, 5rem); }
+  .hero-rose-wrap { width: 170px; height: 170px; }
+  .hero-glow { width: 250px; height: 250px; }
+  .bg-orb-1 { width: 300px; height: 300px; }
+  .bg-orb-2 { width: 250px; height: 250px; }
+  .curtain-grid {
+    padding: 0.8rem;
+    gap: 0.3rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+  .c-rose-wrap .c-rose { font-size: 0.8rem !important; }
+  .split-vine { display: none; }
+  .h-particle { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero-rose { font-size: clamp(2.5rem, 14vw, 3.5rem); }
+  .hero-rose-wrap { width: 120px; height: 120px; }
+  .hero-glow { width: 180px; height: 180px; }
+  .curtain-grid { padding: 0.3rem; gap: 0.1rem; }
+  .c-rose-wrap .c-rose { font-size: 0.6rem !important; }
+  .fall-petal { display: none; }
+  .bouquet { display: none; }
+  .bg-petal { display: none; }
+  .s-star { display: none; }
+}
+
+// ================================================================
+// REDUCED MOTION
+// ================================================================
+@media (prefers-reduced-motion: reduce) {
+  .curtain.open { transition-duration: 0.01s !important; }
+  .petal-3d { animation-duration: 0.01s !important; }
+  .rose-3d-container { animation: none !important; }
+  .hero-rose, .c-rose, .fall-petal,
+  .bg-petal, .h-particle, .bouquet, .s-star { animation-duration: 0.01s !important; }
+  .light-rays { animation: none !important; }
+  .shimmer-sweep { animation: none !important; }
+  .hero-ring { animation: none !important; }
+  .hero-glow { animation: none !important; }
+  .bg-orb { animation: none !important; }
+  .curtain-vines { animation: none !important; }
+}

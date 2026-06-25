@@ -1,0 +1,290 @@
+// ================================================================
+// TOKENS
+// ================================================================
+$wine  : #74143d;
+$rose  : #d93b79;
+$blush : #ffd1e3;
+$cream : #fff7fb;
+$gold  : #d8a94c;
+$pink  : #ff8cbd;
+$hot-pink : #ff5fa2;
+
+// ================================================================
+// HOST
+// ================================================================
+:host { display: contents; }
+
+// ================================================================
+// SCREEN
+// ================================================================
+.screen-envelope {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 40%, rgba(255, 209, 227, 0.9) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 30% 70%, rgba(255, 140, 189, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 80% 30%, rgba(216, 169, 76, 0.1) 0%, transparent 40%),
+    linear-gradient(160deg, #fff0f7 0%, #ffd8e9 50%, #fff7fb 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  transition: opacity 1s ease-in-out;
+  z-index: 10;
+}
+.screen-envelope.fade-out { opacity: 0; pointer-events: none; }
+
+// ----------------------------------------------------------------
+// Ambient orbs
+// ----------------------------------------------------------------
+.ambient {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+}
+.ambient-one {
+  width: 300px; height: 300px;
+  background: rgba(255, 95, 162, 0.15);
+  top: -80px; right: -60px;
+  animation: floatOrb 8s ease-in-out infinite alternate;
+}
+.ambient-two {
+  width: 250px; height: 250px;
+  background: rgba(216, 169, 76, 0.1);
+  bottom: -60px; left: -80px;
+  animation: floatOrb 10s ease-in-out 2s infinite alternate;
+}
+.ambient-three {
+  width: 200px; height: 200px;
+  background: rgba(255, 140, 189, 0.12);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: floatOrb 6s ease-in-out 1s infinite alternate;
+}
+@keyframes floatOrb {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(20px, -15px) scale(1.1); }
+}
+
+// ----------------------------------------------------------------
+// Floating petals
+// ----------------------------------------------------------------
+.petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  will-change: transform, opacity;
+  opacity: var(--petal-opacity, 0.5);
+  filter: drop-shadow(0 2px 4px rgba(217, 59, 121, 0.15));
+}
+@keyframes petal-fall {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); }
+  50%  { transform: translateY(50vh) translateX(20px) rotate(180deg); }
+  100% { transform: translateY(105vh) translateX(-15px) rotate(360deg); }
+}
+
+// ----------------------------------------------------------------
+// Envelope wrapper
+// ----------------------------------------------------------------
+.envelope-wrapper {
+  position: relative;
+  cursor: pointer;
+  z-index: 5;
+  margin-bottom: 2.5rem;
+  transition: transform 0.3s ease;
+  width: min(400px, 88vw);
+  height: min(266px, 58vw);
+}
+.envelope-wrapper:hover { transform: translateY(-3px) scale(1.015); }
+
+// Shadow beneath envelope
+.envelope-shadow {
+  position: absolute;
+  bottom: -20px;
+  left: 5%;
+  width: 90%;
+  height: 40px;
+  background: radial-gradient(ellipse, rgba(116, 20, 61, 0.15) 0%, transparent 70%);
+  filter: blur(10px);
+  z-index: 0;
+}
+
+.envelope {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #fff 0%, #fff7fb 40%, #fff0f7 100%);
+  position: relative;
+  box-shadow:
+    0 20px 50px rgba(116, 20, 61, 0.15),
+    0 4px 12px rgba(116, 20, 61, 0.08);
+  border-radius: 4px;
+  overflow: visible;
+}
+
+// Back panels
+.env-back { position: absolute; inset: 0; overflow: hidden; border-radius: 4px; }
+
+.env-left, .env-right, .env-bottom {
+  position: absolute;
+  background: linear-gradient(160deg, #fff7fb, #fff0f7);
+  border: 1px solid rgba(116, 20, 61, 0.05);
+}
+.env-left  { top: 0; left: 0; width: 50%; height: 100%; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.env-right { top: 0; right: 0; width: 50%; height: 100%; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+.env-bottom {
+  bottom: 0; left: 0; width: 100%; height: 62%;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  box-shadow: 0 -6px 16px rgba(116, 20, 61, 0.04);
+}
+
+// Triangular flap — hot pink gradient
+.env-flap {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 58%;
+  background: linear-gradient(165deg, #ff5fa2 0%, #d93b79 50%, #74143d 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform 1.2s cubic-bezier(0.22, 0.97, 0.39, 1.02);
+  z-index: 5;
+  box-shadow: 0 8px 24px rgba(217, 59, 121, 0.3);
+  overflow: hidden;
+}
+.env-flap-shine {
+  position: absolute;
+  top: -20%; left: -10%;
+  width: 60%; height: 140%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+  transform: rotate(12deg);
+}
+.envelope.open .env-flap { transform: rotateX(180deg); z-index: 1; }
+
+// Wax seal
+.seal-wrapper {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  transition: opacity 0.6s, transform 0.6s;
+}
+.envelope.open .seal-wrapper {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.8);
+}
+.seal {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #a02a55, #74143d 75%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 16px rgba(116, 20, 61, 0.4),
+    inset 0 0 0 2px rgba(216, 169, 76, 0.3),
+    inset 0 2px 6px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+.seal-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #d8a94c;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.seal::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 14px;
+  width: 22px; height: 13px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.2) 0%, transparent 100%);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+
+// Gold floral corner SVGs
+.env-corner {
+  position: absolute;
+  width: 26px; height: 26px;
+  z-index: 4;
+  stroke: #d8a94c;
+  stroke-width: 1.1;
+  fill: none;
+  opacity: 0.5;
+}
+.env-corner-tl { top: 14px; left: 14px; }
+.env-corner-tr { top: 14px; right: 14px; transform: scaleX(-1); }
+.env-corner-bl { bottom: 14px; left: 14px; transform: scaleY(-1); }
+.env-corner-br { bottom: 14px; right: 14px; transform: scale(-1); }
+
+// Bottom label
+.env-label {
+  position: absolute;
+  bottom: 26px;
+  width: 100%;
+  text-align: center;
+  z-index: 4;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+  color: #d93b79;
+  letter-spacing: 1px;
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(217, 59, 121, 0.1);
+}
+
+// "GENTLY TOUCH TO OPEN"
+.touch-text {
+  position: relative;
+  z-index: 5;
+  color: #d8a94c;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: clamp(0.65rem, 1.8vw, 0.8rem);
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  animation: pulse-opacity 2s ease-in-out infinite;
+}
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+// ================================================================
+// RESPONSIVE
+// ================================================================
+@media (max-width: 820px) {
+  .envelope-wrapper { width: min(320px, 90vw); height: min(212px, 60vw); }
+  .env-flap { height: 56%; }
+  .seal { width: 54px; height: 54px; }
+  .seal-wrapper { top: 40%; }
+  .env-corner { width: 20px; height: 20px; }
+  .env-corner-tl { top: 10px; left: 10px; }
+  .env-corner-tr { top: 10px; right: 10px; }
+  .env-corner-bl { bottom: 10px; left: 10px; }
+  .env-corner-br { bottom: 10px; right: 10px; }
+}
+
+@media (max-width: 480px) {
+  .envelope-wrapper { width: min(270px, 92vw); height: min(180px, 62vw); margin-bottom: 1.5rem; }
+  .env-flap { height: 54%; }
+  .seal { width: 42px; height: 42px; }
+  .seal-text { font-size: 0.5rem; letter-spacing: 1.5px; }
+  .seal-wrapper { top: 38%; }
+  .seal::after { top: 5px; left: 9px; width: 16px; height: 10px; }
+  .env-corner { width: 16px; height: 16px; }
+  .env-corner-tl { top: 8px; left: 8px; }
+  .env-corner-tr { top: 8px; right: 8px; }
+  .env-corner-bl { bottom: 8px; left: 8px; }
+  .env-corner-br { bottom: 8px; right: 8px; }
+  .env-label { bottom: 16px; }
+  .touch-text { letter-spacing: 3px; }
+}

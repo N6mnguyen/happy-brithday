@@ -1,0 +1,49 @@
+<div class="screen-envelope" [class.fade-out]="isOpen">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="ambient ambient-three"></div>
+  <div class="petals-container"></div>
+
+  <div class="envelope-wrapper" (click)="onEnvelopeClick()">
+    <div class="envelope-shadow"></div>
+    <div class="envelope" [class.open]="isOpen">
+
+      <div class="env-back">
+        <div class="env-left"></div>
+        <div class="env-right"></div>
+        <div class="env-bottom"></div>
+      </div>
+
+      <div class="env-flap">
+        <div class="env-flap-shine"></div>
+      </div>
+
+      <div class="seal-wrapper">
+        <div class="seal">
+          <span class="seal-text">ROSE</span>
+        </div>
+      </div>
+
+      <svg class="env-corner env-corner-tl" viewBox="0 0 32 32">
+        <path d="M2 16 C2 8 8 2 16 2 C10 2 4 6 2 12 C1 8 2 4 6 2" />
+        <circle cx="16" cy="2" r="1.5" />
+      </svg>
+      <svg class="env-corner env-corner-tr" viewBox="0 0 32 32">
+        <path d="M2 16 C2 8 8 2 16 2 C10 2 4 6 2 12 C1 8 2 4 6 2" />
+        <circle cx="16" cy="2" r="1.5" />
+      </svg>
+      <svg class="env-corner env-corner-bl" viewBox="0 0 32 32">
+        <path d="M2 16 C2 8 8 2 16 2 C10 2 4 6 2 12 C1 8 2 4 6 2" />
+        <circle cx="16" cy="2" r="1.5" />
+      </svg>
+      <svg class="env-corner env-corner-br" viewBox="0 0 32 32">
+        <path d="M2 16 C2 8 8 2 16 2 C10 2 4 6 2 12 C1 8 2 4 6 2" />
+        <circle cx="16" cy="2" r="1.5" />
+      </svg>
+
+      <div class="env-label">For My Beloved</div>
+    </div>
+  </div>
+
+  <div class="touch-text">Gently touch to open</div>
+</div>

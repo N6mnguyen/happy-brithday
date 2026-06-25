@@ -1,0 +1,155 @@
+<div class="screen">
+
+  <!-- ── Floating petals & roses overlay ─────────────────────── -->
+  <div class="float-petals" id="floatPetals">
+    @for (fp of floatingPetals; track $index) {
+      @if (fp.isRose) {
+        <span
+          class="fp-rose sway-{{ fp.sway }}"
+          [style.--fp-x]="fp.x + '%'"
+          [style.--fp-delay]="fp.delay + 's'"
+          [style.--fp-dur]="fp.dur + 's'"
+          [style.--fp-size]="fp.size + 'px'"
+        >🌹</span>
+      } @else {
+        <span
+          class="fp-petal sway-{{ fp.sway }}"
+          [style.--fp-x]="fp.x + '%'"
+          [style.--fp-delay]="fp.delay + 's'"
+          [style.--fp-dur]="fp.dur + 's'"
+          [style.--fp-size]="fp.size + 'px'"
+          [style.--fp-color]="fp.color"
+        ></span>
+      }
+    }
+  </div>
+
+  <!-- ============================================================
+       HERO — Letter card
+       ============================================================ -->
+  <section class="hero section-reveal" id="heroSection">
+    <div class="letter-wrap">
+
+      <!-- Overlapping polaroid photo -->
+      <div class="polaroid-photo animate-pop" id="polaroidPhoto">
+        <div class="photo-frame">
+        </div>
+        <span class="photo-caption">A moment to treasure</span>
+
+        <!-- Petals fluttering around the photo -->
+        <span class="orbit-petal orbit-petal-1"></span>
+        <span class="orbit-petal orbit-petal-2"></span>
+        <span class="orbit-petal orbit-petal-3"></span>
+      </div>
+
+      <!-- Letter card -->
+      <div class="letter-card animate-float-in" id="letterCard">
+        <div class="wax wax-l"></div>
+        <div class="wax wax-r"></div>
+
+        <!-- Decorative roses on the letter -->
+        <span class="rose-deco rose-deco-tl">🌹</span>
+        <span class="rose-deco rose-deco-br">🌹</span>
+
+        <span class="letter-headline animate-text">Happy Birthday,</span>
+        <span class="letter-subhead animate-text">my love</span>
+
+        <div class="letter-body">
+          <p class="animate-text">
+            Today the world feels a little brighter, a little warmer — because
+            it's the day you came into it. Every laugh we've shared, every quiet
+            glance, every moment by your side has been a gift I never knew I was
+            waiting for.
+          </p>
+
+          <div class="divider animate-text">
+            <svg viewBox="0 0 60 16" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M5 8 C5 4 8 2 12 2 C16 2 18 5 18 8 C18 11 16 14 12 14 C8 14 5 12 5 8Z" />
+              <line x1="22" y1="8" x2="38" y2="8" stroke-dasharray="3 3" />
+              <path d="M42 8 C42 4 45 2 49 2 C53 2 55 5 55 8 C55 11 53 14 49 14 C45 14 42 12 42 8Z" />
+            </svg>
+          </div>
+
+          <p class="animate-text">
+            I wanted to gather a few of our memories here — scattered like
+            polaroids on a table — to remind you of the beauty you bring into
+            my life. This isn't just a birthday; it's a celebration of us, of
+            every chapter we've written and all the blank pages ahead.
+          </p>
+
+          <div class="divider animate-text">
+            <svg viewBox="0 0 60 16" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M5 8 C5 4 8 2 12 2 C16 2 18 5 18 8 C18 11 16 14 12 14 C8 14 5 12 5 8Z" />
+              <line x1="22" y1="8" x2="38" y2="8" stroke-dasharray="3 3" />
+              <path d="M42 8 C42 4 45 2 49 2 C53 2 55 5 55 8 C55 11 53 14 49 14 C45 14 42 12 42 8Z" />
+            </svg>
+          </div>
+
+          <p class="animate-text">
+            May this new year of yours be filled with laughter, adventure, and
+            all the love your heart can hold. Thank you for being you —
+            extraordinary, beautiful, irreplaceable you.
+          </p>
+        </div>
+
+        <div class="letter-sig animate-text">Forever Yours,</div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue animate-text" id="scrollCue">
+      <div class="petals">
+        @for (p of petalEmojis; track $index) {
+          <span>{{ p }}</span>
+        }
+      </div>
+      <span class="scroll-arrow">↓ scroll</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MEMORY GALLERY
+       ============================================================ -->
+  <section class="gallery section-reveal" id="gallerySection">
+    <h3 class="gallery-title animate-text">
+      Scattered Memories
+      <span class="title-sparkle title-sparkle-1">✦</span>
+      <span class="title-sparkle title-sparkle-2">✦</span>
+    </h3>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- Polaroid memory cards -->
+      @for (card of memoryCards; track $index) {
+      <div
+        class="polaroid-card"
+        [attr.data-rotation]="card.rotation"
+      >
+        <div class="photo-frame" [style.background]="card.gradient">
+        </div>
+        <span class="polaroid-caption">{{ card.caption }}</span>
+      </div>
+      }
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CLOSING
+       ============================================================ -->
+  <section class="closing section-reveal" id="closingSection">
+    <div class="closing-blur"></div>
+
+    <!-- Blooming roses -->
+    <span class="rose-bloom rose-bloom-1">🌹</span>
+    <span class="rose-bloom rose-bloom-2">🌹</span>
+    <span class="rose-bloom rose-bloom-3">🌸</span>
+    <span class="rose-bloom rose-bloom-4">🌸</span>
+
+    <div class="closing-text">
+      <div class="closing-hbd animate-text">Happy Birthday To You,</div>
+      <div class="closing-love animate-text">I love you</div>
+    </div>
+  </section>
+
+</div>

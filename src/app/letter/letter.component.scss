@@ -1,0 +1,1104 @@
+// ================================================================
+// TOKENS
+// ================================================================
+$blush     : #f2a4bb;
+$blush-soft: #ffd6e7;
+$cream     : #fdf6f0;
+$rose      : #c1456b;
+$rose-light: #e85880;
+$wine      : #7a1f3d;
+$gold      : #d4a843;
+$paper     : #fffdf9;
+$ink       : #3a2a2e;
+
+// ================================================================
+// HOST
+// ================================================================
+:host {
+  display: contents;
+}
+
+// ================================================================
+// SCREEN
+// ================================================================
+.screen {
+  background: linear-gradient(180deg, $blush 0%, $cream 20%, $cream 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  animation: screenFadeIn 1.2s ease forwards;
+  position: relative;
+  overflow-x: hidden;
+}
+
+@keyframes screenFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ================================================================
+// FLOATING PETALS & ROSES OVERLAY
+// ================================================================
+.float-petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fp-petal {
+  position: absolute;
+  top: -20px;
+  left: var(--fp-x, 50%);
+  width: var(--fp-size, 10px);
+  height: calc(var(--fp-size, 10px) * 1.4);
+  background: var(--fp-color, $blush);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  animation: fpFall var(--fp-dur, 6s) var(--fp-delay, 0s) linear infinite;
+}
+
+@keyframes fpFall {
+  0%   { opacity: 0; transform: translateY(-20px) rotate(0deg) scale(0.6); }
+  10%  { opacity: 0.6; }
+  50%  { opacity: 0.4; transform: translateY(50vh) rotate(180deg) scale(1); }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(105vh) rotate(360deg) scale(0.4); }
+}
+
+// ── Sway variants for petals & roses ─────────────────────────
+.sway-a {
+  animation-name: fpFallSwayA !important;
+}
+.sway-b {
+  animation-name: fpFallSwayB !important;
+}
+.sway-c {
+  animation-name: fpFallSwayC !important;
+}
+
+@keyframes fpFallSwayA {
+  0%   { opacity: 0; transform: translateY(-20px) translateX(0)    rotate(0deg)   scale(0.6); }
+  10%  { opacity: 0.6; }
+  25%  { transform: translateY(22vh) translateX(18px) rotate(60deg)  scale(0.9); }
+  50%  { opacity: 0.5; transform: translateY(48vh) translateX(-20px) rotate(160deg) scale(1); }
+  75%  { transform: translateY(75vh) translateX(15px)  rotate(240deg) scale(0.85); }
+  90%  { opacity: 0.25; }
+  100% { opacity: 0; transform: translateY(105vh) translateX(-10px) rotate(340deg) scale(0.4); }
+}
+@keyframes fpFallSwayB {
+  0%   { opacity: 0; transform: translateY(-20px) translateX(0)    rotate(0deg)   scale(0.5); }
+  10%  { opacity: 0.5; }
+  30%  { transform: translateY(28vh) translateX(-22px) rotate(80deg)  scale(0.95); }
+  55%  { opacity: 0.4; transform: translateY(52vh) translateX(18px)  rotate(190deg) scale(0.9); }
+  80%  { transform: translateY(78vh) translateX(-12px) rotate(280deg) scale(0.75); }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(110vh) translateX(8px)  rotate(350deg) scale(0.3); }
+}
+@keyframes fpFallSwayC {
+  0%   { opacity: 0; transform: translateY(-20px) translateX(0)    rotate(0deg)   scale(0.7); }
+  12%  { opacity: 0.7; }
+  28%  { transform: translateY(24vh) translateX(25px) rotate(50deg)  scale(1); }
+  48%  { opacity: 0.5; transform: translateY(46vh) translateX(-25px) rotate(140deg) scale(0.95); }
+  72%  { transform: translateY(72vh) translateX(20px)  rotate(220deg) scale(0.8); }
+  88%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(108vh) translateX(-15px) rotate(320deg) scale(0.35); }
+}
+
+// ── Falling rose emoji ────────────────────────────────────────
+.fp-rose {
+  position: absolute;
+  top: -30px;
+  left: var(--fp-x, 50%);
+  font-size: var(--fp-size, 18px);
+  line-height: 1;
+  opacity: 0;
+  filter: drop-shadow(0 2px 5px rgba(122, 31, 61, 0.25));
+  animation: fpFall var(--fp-dur, 8s) var(--fp-delay, 0s) linear infinite;
+}
+
+// Sway variants — gives petals a fluttering, drifting side-to-side feel
+@keyframes fpSwayA {
+  0%   { opacity: 0; transform: translateY(-20px) translateX(0)     rotate(0deg)   scale(0.6); }
+  10%  { opacity: 0.65; }
+  30%  { transform: translateY(28vh) translateX(22px)  rotate(110deg) scale(0.95); }
+  50%  { opacity: 0.45; transform: translateY(50vh) translateX(-18px) rotate(200deg) scale(1); }
+  70%  { transform: translateY(72vh) translateX(20px)  rotate(300deg) scale(0.9); }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(105vh) translateX(0)     rotate(400deg) scale(0.4); }
+}
+@keyframes fpSwayB {
+  0%   { opacity: 0; transform: translateY(-20px) translateX(0)     rotate(0deg)    scale(0.6); }
+  10%  { opacity: 0.6; }
+  35%  { transform: translateY(32vh) translateX(-26px) rotate(-130deg) scale(1); }
+  60%  { opacity: 0.4; transform: translateY(58vh) translateX(16px)  rotate(-220deg) scale(0.9); }
+  85%  { transform: translateY(88vh) translateX(-14px) rotate(-320deg) scale(0.7); }
+  100% { opacity: 0; transform: translateY(105vh) translateX(0)     rotate(-380deg) scale(0.4); }
+}
+@keyframes fpSwayC {
+  0%   { opacity: 0; transform: translateY(-20px) translateX(0)    rotate(0deg)   scale(0.55); }
+  12%  { opacity: 0.7; }
+  40%  { transform: translateY(38vh) translateX(30px) rotate(150deg) scale(1.05); }
+  55%  { opacity: 0.5; }
+  70%  { transform: translateY(70vh) translateX(-24px) rotate(260deg) scale(0.9); }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(105vh) translateX(0)   rotate(420deg) scale(0.4); }
+}
+
+.fp-petal,
+.fp-rose {
+  &.sway-a { animation-name: fpSwayA; }
+  &.sway-b { animation-name: fpSwayB; }
+  &.sway-c { animation-name: fpSwayC; }
+}
+
+// Falling rose emoji — bigger, slower, gentle sway
+.fp-rose {
+  position: absolute;
+  top: -30px;
+  left: var(--fp-x, 50%);
+  font-size: var(--fp-size, 18px);
+  line-height: 1;
+  opacity: 0;
+  filter: drop-shadow(0 2px 5px rgba(122, 31, 61, 0.25));
+  animation: fpRoseFall var(--fp-dur, 8s) var(--fp-delay, 0s) linear infinite;
+}
+
+@keyframes fpRoseFall {
+  0%   { opacity: 0;   transform: translateY(-30px) translateX(0)    rotate(0deg)   scale(0.6); }
+  8%   { opacity: 0.75; }
+  25%  { transform: translateY(25vh) translateX(14px) rotate(90deg)  scale(0.95); }
+  50%  { opacity: 0.5; transform: translateY(50vh) translateX(-14px) rotate(180deg) scale(1); }
+  75%  { transform: translateY(75vh) translateX(10px)  rotate(270deg) scale(0.9); }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0;   transform: translateY(105vh) translateX(0)   rotate(360deg) scale(0.5); }
+}
+
+// ================================================================
+// ENTRANCE ANIMATION CLASSES (triggered by JS)
+// ================================================================
+
+// Section reveal (slide + fade on scroll)
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ================================================================
+// ENTRANCE ANIMATIONS
+// ================================================================
+
+// Pop-in (polaroid)
+.animate-pop {
+  opacity: 0;
+  transform: scale(0.3) rotate(-10deg);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &.visible {
+    opacity: 1;
+    transform: scale(1) rotate(4deg);
+  }
+}
+
+// Float-in (letter card)
+.animate-float-in {
+  opacity: 0;
+  transform: translateY(60px) rotate(-1deg) scale(0.95);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+}
+
+// Text fade-up stagger
+.animate-text {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ================================================================
+// HERO
+// ================================================================
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.2rem 1.5rem;
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+  z-index: 2;
+}
+
+.letter-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+}
+
+// ----------------------------------------------------------------
+// Letter card — with shimmer & glow
+// ----------------------------------------------------------------
+.letter-card {
+  background: $paper;
+  padding: 2.8rem 2rem 3.5rem;
+  position: relative;
+  box-shadow:
+    0 10px 30px rgba(122, 31, 61, 0.08),
+    0 2px  8px  rgba(122, 31, 61, 0.04),
+    inset 0 0 80px rgba(255, 182, 208, 0.04);
+  transform: rotate(-2deg);
+  color: $ink;
+  border-radius: 3px;
+  overflow: hidden;
+
+  // Shimmer sweep across letter card
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.3) 45%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.3) 55%,
+      transparent 70%
+    );
+    opacity: 0;
+    animation: letterShimmer 3s ease-in-out 1.2s infinite;
+    pointer-events: none;
+  }
+
+  // Subtle paper texture overlay
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(193, 69, 107, 0.015) 2px, rgba(193, 69, 107, 0.015) 3px);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+@keyframes letterShimmer {
+  0%   { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  15%  { opacity: 0.6; }
+  35%  { opacity: 0; }
+  100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+}
+
+// ----------------------------------------------------------------
+// Decorative roses on the letter corners
+// ----------------------------------------------------------------
+.rose-deco {
+  position: absolute;
+  font-size: 1.3rem;
+  opacity: 0.35;
+  z-index: 11;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(122, 31, 61, 0.2));
+
+  &.rose-deco-tl {
+    top: 10px;
+    left: 14px;
+    animation: roseSwayL 4s ease-in-out infinite;
+  }
+  &.rose-deco-br {
+    bottom: 16px;
+    right: 16px;
+    animation: roseSwayR 4s ease-in-out 1.5s infinite;
+  }
+}
+
+@keyframes roseSwayL {
+  0%, 100% { transform: rotate(-15deg) scale(1); }
+  50%      { transform: rotate(-6deg) scale(1.1); }
+}
+@keyframes roseSwayR {
+  0%, 100% { transform: rotate(15deg) scale(1); }
+  50%      { transform: rotate(6deg) scale(1.1); }
+}
+
+// ----------------------------------------------------------------
+// Wax seals
+// ----------------------------------------------------------------
+.wax {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: $wine;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(122, 31, 61, 0.3);
+  z-index: 10;
+  animation: waxPulse 3s ease-in-out infinite;
+
+  &::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: $gold;
+    border-radius: 50%;
+    animation: waxGoldPulse 2s ease-in-out infinite alternate;
+  }
+
+  &.wax-l {
+    bottom: 10px; left: 24px;
+    transform: rotate(-8deg);
+    animation-delay: 0s;
+  }
+  &.wax-r {
+    bottom: 10px; right: 24px;
+    transform: rotate(10deg);
+    animation-delay: 1.5s;
+  }
+}
+
+@keyframes waxPulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(122, 31, 61, 0.3); }
+  50%      { box-shadow: 0 2px 18px rgba(122, 31, 61, 0.6); }
+}
+@keyframes waxGoldPulse {
+  from { transform: scale(0.9); opacity: 0.7; }
+  to   { transform: scale(1.1); opacity: 1; }
+}
+
+// ----------------------------------------------------------------
+// Polaroid photo — with corner hearts & glow
+// ----------------------------------------------------------------
+.polaroid-photo {
+  position: absolute;
+  top: -25px;
+  right: -10px;
+  background: white;
+  padding: 7px 7px 38px 7px;
+  box-shadow:
+    0 10px 30px rgba(122, 31, 61, 0.15),
+    0 0 40px rgba(255, 140, 176, 0.08);
+  transform: rotate(4deg);
+  width: clamp(120px, 26vw, 165px);
+  z-index: 20;
+  animation: polaroidFloat 4s ease-in-out infinite;
+
+  // Decorative heart corners
+  &::before {
+    content: '♥';
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    font-size: 0.5rem;
+    color: #ff8cbd;
+    opacity: 0.25;
+    z-index: 5;
+    animation: heartPulse 2s ease-in-out infinite;
+  }
+
+  // Sparkle dot
+  &::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 4px;
+    height: 4px;
+    background: #ffe8a0;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(255, 232, 160, 0.4);
+    opacity: 0;
+    animation: polaroidSparkle 3s ease-in-out 1s infinite;
+  }
+}
+
+@keyframes polaroidSparkle {
+  0%, 90%, 100% { opacity: 0; transform: scale(0.5); }
+  30% { opacity: 0.8; transform: scale(1.2); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50%      { transform: scale(1.3); opacity: 0.5; }
+}
+
+@keyframes polaroidFloat {
+  0%, 100% { transform: rotate(4deg) translateY(0); }
+  50%      { transform: rotate(3deg) translateY(-7px); }
+}
+
+// ----------------------------------------------------------------
+// Petals fluttering around the polaroid photo
+// ----------------------------------------------------------------
+.orbit-petal {
+  position: absolute;
+  width: 9px;
+  height: 13px;
+  background: linear-gradient(135deg, #ff9cc0, #ffd6e7);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 21;
+  filter: drop-shadow(0 1px 3px rgba(122, 31, 61, 0.15));
+
+  &.orbit-petal-1 {
+    top: -8px;
+    left: -14px;
+    animation: orbitPetal1 5s ease-in-out infinite;
+  }
+  &.orbit-petal-2 {
+    top: 30%;
+    right: -18px;
+    width: 7px;
+    height: 10px;
+    animation: orbitPetal2 6s ease-in-out 1s infinite;
+  }
+  &.orbit-petal-3 {
+    bottom: -10px;
+    left: 30%;
+    width: 8px;
+    height: 11px;
+    animation: orbitPetal3 5.5s ease-in-out 2s infinite;
+  }
+}
+
+@keyframes orbitPetal1 {
+  0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  20%      { opacity: 0.8; }
+  50%      { opacity: 0.6; transform: translate(-16px, 14px) rotate(140deg); }
+  80%      { opacity: 0.2; }
+}
+@keyframes orbitPetal2 {
+  0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  25%      { opacity: 0.75; }
+  55%      { opacity: 0.5; transform: translate(14px, -18px) rotate(-150deg); }
+  85%      { opacity: 0.15; }
+}
+@keyframes orbitPetal3 {
+  0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  30%      { opacity: 0.7; }
+  60%      { opacity: 0.45; transform: translate(10px, 16px) rotate(120deg); }
+  85%      { opacity: 0.15; }
+}
+
+// ----------------------------------------------------------------
+// Orbit petals — small petals fluttering around polaroid
+// ----------------------------------------------------------------
+.orbit-petal {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  pointer-events: none;
+
+  &-1 {
+    top: -8px; left: 20%;
+    background: $blush;
+    animation: orbitPetalA 4s ease-in-out 0.5s infinite;
+  }
+  &-2 {
+    bottom: 32px; right: -8px;
+    background: $rose-light;
+    animation: orbitPetalB 5s ease-in-out 1s infinite;
+  }
+  &-3 {
+    top: 30%; right: -6px;
+    background: #ff8cb0;
+    animation: orbitPetalC 4.5s ease-in-out 0s infinite;
+  }
+}
+
+@keyframes orbitPetalA {
+  0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
+  20%  { opacity: 0.7; transform: translate(6px, 10px) rotate(30deg) scale(1); }
+  50%  { opacity: 0.4; transform: translate(-4px, 18px) rotate(90deg) scale(0.8); }
+  80%  { opacity: 0.2; transform: translate(8px, 8px) rotate(160deg) scale(0.6); }
+}
+@keyframes orbitPetalB {
+  0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.4); }
+  25%  { opacity: 0.6; transform: translate(-8px, -6px) rotate(50deg) scale(1); }
+  55%  { opacity: 0.3; transform: translate(-14px, 4px) rotate(120deg) scale(0.7); }
+  85%  { opacity: 0.1; transform: translate(-4px, 10px) rotate(200deg) scale(0.5); }
+}
+@keyframes orbitPetalC {
+  0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
+  15%  { opacity: 0.5; transform: translate(-6px, -4px) rotate(40deg) scale(0.9); }
+  45%  { opacity: 0.3; transform: translate(-12px, -10px) rotate(100deg) scale(0.7); }
+  75%  { opacity: 0.15; transform: translate(-4px, -6px) rotate(170deg) scale(0.5); }
+}
+
+// ----------------------------------------------------------------
+// Hover effects
+// ----------------------------------------------------------------
+.polaroid-photo {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease;
+
+  &:hover {
+    transform: rotate(5deg) translateY(-8px) scale(1.05) !important;
+    box-shadow:
+      0 18px 40px rgba(122, 31, 61, 0.2),
+      0 0 50px rgba(255, 140, 176, 0.12);
+    z-index: 25;
+
+    &::before {
+      opacity: 0.5;
+      color: #e85880;
+    }
+
+    .photo-caption {
+      color: $rose;
+    }
+  }
+}
+
+.letter-card {
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow:
+      0 16px 40px rgba(122, 31, 61, 0.12),
+      0 4px 12px rgba(122, 31, 61, 0.06),
+      inset 0 0 80px rgba(255, 182, 208, 0.04);
+  }
+}
+
+// Gallery polaroid hover
+.polaroid-card {
+  transition:
+    opacity   0.6s ease-out,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s ease;
+
+  &:hover {
+    transform: translateY(-6px) scale(1.04) !important;
+    box-shadow:
+      0 16px 36px rgba(122, 31, 61, 0.18),
+      0 0 0 1px rgba(217, 59, 121, 0.08);
+    z-index: 10;
+
+    .polaroid-caption {
+      color: $rose;
+    }
+  }
+}
+
+.photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, $rose, $gold);
+  overflow: hidden;
+
+  // Inner border accent
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.photo-caption {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.78rem;
+  color: $ink;
+}
+
+// ----------------------------------------------------------------
+// Letter typography
+// ----------------------------------------------------------------
+.letter-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  background: linear-gradient(135deg, $wine 0%, $rose 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.15;
+  font-weight: 700;
+  display: block;
+}
+
+.letter-subhead {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: $rose;
+  margin-bottom: 1.5rem;
+  margin-top: -4px;
+  display: block;
+  text-shadow: 0 2px 8px rgba(217, 59, 121, 0.12);
+}
+
+.letter-body {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  line-height: 1.8;
+  color: $ink;
+
+  p { margin-bottom: 1rem; }
+}
+
+.divider {
+  text-align: center;
+  margin: 1.2rem 0;
+  color: $gold;
+
+  svg {
+    width: 50px;
+    height: 14px;
+  }
+}
+
+.letter-sig {
+  text-align: right;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: $rose;
+  margin-top: 2rem;
+  padding-right: 12px;
+}
+
+// ----------------------------------------------------------------
+// Scroll cue
+// ----------------------------------------------------------------
+.scroll-cue {
+  text-align: center;
+  color: $rose;
+  font-size: 0.85rem;
+  font-family: 'Dancing Script', cursive;
+  margin: 1.2rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.scroll-arrow {
+  animation: scrollBounce 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(6px); opacity: 1; }
+}
+
+.petals {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1rem;
+
+  span {
+    display: inline-block;
+    animation: petalBounce 2s ease-in-out infinite;
+    &:nth-child(2) { animation-delay: 0.3s; }
+    &:nth-child(3) { animation-delay: 0.6s; }
+    &:nth-child(4) { animation-delay: 0.9s; }
+    &:nth-child(5) { animation-delay: 1.2s; }
+  }
+}
+
+@keyframes petalBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+// ================================================================
+// GALLERY
+// ================================================================
+.gallery {
+  padding: 2rem 1rem 4rem;
+  text-align: center;
+  background: $cream;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(242, 164, 187, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(193, 69, 107, 0.06) 0%, transparent 50%);
+}
+
+.gallery-title {
+  font-family: 'Playfair Display', serif;
+  color: $wine;
+  font-style: italic;
+  font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.title-sparkle {
+  position: absolute;
+  color: $rose;
+  font-size: 1rem;
+  opacity: 0;
+  animation: titleTwinkle 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(193, 69, 107, 0.4));
+  text-shadow: 0 0 8px rgba(193, 69, 107, 0.3);
+
+  &.title-sparkle-1 {
+    top: -12px; left: -20px;
+    animation-delay: 0.2s;
+  }
+  &.title-sparkle-2 {
+    bottom: -6px; right: -22px;
+    font-size: 0.8rem;
+    animation-delay: 1s;
+  }
+}
+
+@keyframes titleTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  30%  { opacity: 1; transform: scale(1.3) rotate(30deg); }
+  60%  { opacity: 0.4; transform: scale(0.8) rotate(-10deg); }
+  85%  { opacity: 0.7; transform: scale(1.1) rotate(15deg); }
+}
+
+.gallery-grid {
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem 1.8rem;
+  position: relative;
+}
+
+// Polaroid cards
+.polaroid-card {
+  background: linear-gradient(160deg, #fff, #fff7fb);
+  padding: 8px 8px 48px 8px;
+  box-shadow:
+    0 8px 24px rgba(122, 31, 61, 0.1),
+    0 0 0 1px rgba(217, 59, 121, 0.04);
+  width: clamp(150px, 40vw, 200px);
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition:
+    opacity   0.6s ease-out,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity;
+  border-radius: 2px;
+
+  &::before {
+    content: '♥';
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    font-size: 0.6rem;
+    color: #ff8cbd;
+    opacity: 0.3;
+    z-index: 5;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  &:hover {
+    transform: translateY(-4px) scale(1.02) !important;
+    box-shadow: 0 14px 32px rgba(122, 31, 61, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 1px;
+  }
+}
+
+.polaroid-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: #74143d;
+}
+
+// ================================================================
+// CLOSING
+// ================================================================
+.closing {
+  padding: 4rem 1.5rem 6rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  background: linear-gradient(180deg, $cream 0%, #fff0f7 50%, #ffe8f0 100%);
+  width: 100%;
+  z-index: 2;
+}
+
+// Blooming roses scattered around the closing message
+.rose-bloom {
+  position: absolute;
+  font-size: 2.2rem;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 6px rgba(122, 31, 61, 0.2));
+  animation: roseBloomIn 1s ease-out forwards;
+
+  &.rose-bloom-1 {
+    top: 12%;
+    left: 7%;
+    animation-delay: 0.1s, 1.1s;
+    animation-name: roseBloomIn, roseFloatA;
+    animation-duration: 1s, 5s;
+    animation-iteration-count: 1, infinite;
+    animation-timing-function: ease-out, ease-in-out;
+  }
+  &.rose-bloom-2 {
+    bottom: 10%;
+    right: 7%;
+    font-size: 2.4rem;
+    animation-delay: 0.4s, 1.4s;
+    animation-name: roseBloomIn, roseFloatB;
+    animation-duration: 1s, 6s;
+    animation-iteration-count: 1, infinite;
+    animation-timing-function: ease-out, ease-in-out;
+  }
+  &.rose-bloom-3 {
+    top: 18%;
+    right: 14%;
+    font-size: 1.3rem;
+    animation-delay: 0.7s, 1.7s;
+    animation-name: roseBloomIn, roseFloatA;
+    animation-duration: 1s, 4.5s;
+    animation-iteration-count: 1, infinite;
+    animation-timing-function: ease-out, ease-in-out;
+  }
+  &.rose-bloom-4 {
+    bottom: 16%;
+    left: 14%;
+    font-size: 1.4rem;
+    animation-delay: 1s, 2s;
+    animation-name: roseBloomIn, roseFloatB;
+    animation-duration: 1s, 5.5s;
+    animation-iteration-count: 1, infinite;
+    animation-timing-function: ease-out, ease-in-out;
+  }
+}
+
+@keyframes roseBloomIn {
+  0%   { opacity: 0; transform: scale(0.2) rotate(-30deg); }
+  60%  { opacity: 0.85; transform: scale(1.15) rotate(8deg); }
+  100% { opacity: 0.65; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes roseFloatA {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50%      { transform: translateY(-10px) rotate(4deg); }
+}
+@keyframes roseFloatB {
+  0%, 100% { transform: translateY(0) rotate(6deg); }
+  50%      { transform: translateY(-10px) rotate(-4deg); }
+}
+
+.closing-blur {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #ff5fa2 0%, #d93b79 35%, $gold 60%, transparent 75%);
+  filter: blur(60px);
+  opacity: 0.2;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: blurPulse 4s ease-in-out infinite alternate;
+}
+@keyframes blurPulse {
+  from { opacity: 0.15; transform: translate(-50%, -50%) scale(0.9); }
+  to   { opacity: 0.3;  transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.closing-text { position: relative; z-index: 2; }
+
+.closing-hbd {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  color: $wine;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(217, 59, 121, 0.1);
+}
+
+.closing-love {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  background: linear-gradient(135deg, $rose 0%, #ff5fa2 50%, $gold 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0.2rem;
+  filter: drop-shadow(0 2px 8px rgba(217, 59, 121, 0.15));
+}
+
+// ================================================================
+// MOBILE-FIRST RESPONSIVE
+// ================================================================
+
+/* Small phone (< 400px) */
+@media (max-width: 399px) {
+  .hero { padding: 1.2rem 0.6rem 1rem; }
+  .letter-card { padding: 1.5rem 0.8rem 2.2rem; }
+  .polaroid-photo {
+    position: relative;
+    top: auto; right: auto;
+    margin: 0 auto 0.6rem;
+    width: clamp(90px, 55vw, 120px);
+    padding: 5px 5px 30px 5px;
+    transform: rotate(2deg);
+    display: block;
+  }
+  .photo-caption { font-size: 0.6rem; bottom: 6px; }
+  .letter-headline { font-size: 1.3rem; }
+  .letter-subhead { font-size: 1.5rem; }
+  .letter-body { font-size: 0.78rem; line-height: 1.6; }
+  .letter-sig { font-size: 1.3rem; }
+  .wax { width: 24px; height: 24px; }
+  .wax::after { width: 7px; height: 7px; }
+  .wax-l { left: 10px !important; }
+  .wax-r { right: 10px !important; }
+  .rose-deco { font-size: 1rem; }
+  .gallery-grid { gap: 1.5rem 0.8rem; }
+  .polaroid-card { width: clamp(110px, 42vw, 140px); padding: 5px 5px 36px 5px; }
+  .polaroid-caption { font-size: 0.7rem; }
+  .closing { padding: 2.5rem 1rem 4rem; min-height: 30vh; }
+  .closing-blur { width: 160px; height: 160px; }
+  .closing-hbd { font-size: 1.4rem; }
+  .closing-love { font-size: 1.8rem; }
+  .rose-bloom { font-size: 1.4rem !important; }
+}
+
+/* Phone (400-599px) */
+@media (min-width: 400px) and (max-width: 599px) {
+  .hero { padding: 1.5rem 0.8rem 1.2rem; }
+  .polaroid-photo {
+    position: relative;
+    top: auto; right: auto;
+    margin: 0 auto 0.8rem;
+    width: clamp(100px, 40vw, 140px);
+    padding: 6px 6px 34px 6px;
+    display: block;
+  }
+  .letter-card {
+    padding: 1.8rem 1.2rem 2.5rem;
+    clip-path: none;
+  }
+  .letter-headline { font-size: 1.5rem; }
+  .letter-subhead { font-size: 1.7rem; }
+  .letter-body { font-size: 0.82rem; }
+  .letter-sig { font-size: 1.5rem; }
+  .wax-l { left: 14px !important; }
+  .wax-r { right: 14px !important; }
+  .wax { width: 26px; height: 26px; }
+  .wax::after { width: 8px; height: 8px; }
+  .rose-deco { font-size: 1.1rem; }
+  .gallery-grid { gap: 1.8rem 1rem; }
+  .polaroid-card { width: clamp(130px, 42vw, 160px); }
+  .closing { padding: 3rem 1.2rem 5rem; min-height: 35vh; }
+  .closing-blur { width: 180px; height: 180px; }
+  .closing-hbd { font-size: 1.6rem; }
+  .closing-love { font-size: 2rem; }
+  .rose-bloom { font-size: 1.7rem !important; }
+}
+
+/* Tablet (600-899px) */
+@media (min-width: 600px) and (max-width: 899px) {
+  .hero { padding: 2rem 1.2rem 1.5rem; }
+  .polaroid-photo {
+    position: relative;
+    top: auto; right: auto;
+    margin: 0 auto 1rem;
+    width: clamp(120px, 30vw, 150px);
+    display: block;
+  }
+  .letter-card {
+    padding: 2.2rem 1.8rem 3rem;
+    clip-path: none;
+  }
+  .letter-headline { font-size: clamp(1.6rem, 4vw, 2rem); }
+  .letter-subhead { font-size: clamp(1.8rem, 5vw, 2.2rem); }
+  .wax-l { left: 18px !important; }
+  .wax-r { right: 18px !important; }
+  .gallery-grid { gap: 2.2rem 1.5rem; }
+  .polaroid-card { width: clamp(150px, 35vw, 190px); }
+  .closing { padding: 3.5rem 1.5rem 6rem; }
+  .closing-blur { width: 220px; height: 220px; }
+}
+
+// ================================================================
+// REDUCED MOTION
+// ================================================================
+@media (prefers-reduced-motion: reduce) {
+  .screen { animation-duration: 0.01s !important; }
+  .fp-petal { animation: none !important; display: none; }
+  .fp-rose { animation: none !important; display: none; }
+  .orbit-petal { animation: none !important; display: none; }
+  .title-sparkle { animation: none !important; display: none; }
+  .polaroid-photo { animation: none !important; }
+  .wax { animation: none !important; }
+  .rose-deco { animation: none !important; }
+  .rose-bloom { animation: none !important; opacity: 0.65 !important; transform: none !important; }
+  .closing-blur { animation: none !important; }
+  .scroll-arrow { animation: none !important; }
+  .petals span { animation: none !important; }
+  .section-reveal,
+  .animate-pop,
+  .animate-float-in,
+  .animate-text {
+    transition-duration: 0.01s !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .polaroid-card { transition-duration: 0.01s !important; }
+}

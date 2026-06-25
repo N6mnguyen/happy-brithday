@@ -1,0 +1,176 @@
+/* ============================================================
+   GLOBAL STYLES — CSS Variables, Fonts, Base & Shared Keyframes
+   ============================================================ */
+
+:root {
+  --wine: #74143d;
+  --rose: #d93b79;
+  --hot-pink: #ff5fa2;
+  --pink: #ff8cbd;
+  --blush: #ffd1e3;
+  --cream: #fff7fb;
+  --gold: #d8a94c;
+  --ink: #44202f;
+  --paper: #fffafd;
+  --glass: rgba(255, 255, 255, 0.58);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 95, 162, 0.28), transparent 30vw),
+    radial-gradient(circle at 86% 8%, rgba(216, 169, 76, 0.2), transparent 26vw),
+    linear-gradient(135deg, #fff7fb 0%, #ffd8e9 48%, #fff0f7 100%);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.display-font {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+
+.script-font {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* ============================================================
+   Shared Keyframes
+   ============================================================ */
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--petal-opacity, 0.6);
+  }
+  85% {
+    opacity: var(--petal-opacity, 0.6);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) translateX(80px);
+    opacity: 0;
+  }
+}
+
+@keyframes bloom-pulse {
+  0% {
+    transform: scale(0.7);
+    filter: drop-shadow(0 0 10px rgba(193, 69, 107, 0.4)) brightness(0.7);
+  }
+  100% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 40px rgba(193, 69, 107, 0.8))
+            drop-shadow(0 0 70px rgba(207, 161, 94, 0.5)) brightness(1.25);
+  }
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-counter-spin {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes sparkle-rise {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes draw-circle {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes caption-fade {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+@keyframes petal-drop {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50% { transform: translateY(10px) rotate(15deg); opacity: 1; }
+}
+
+@keyframes soft-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -14px, 0) rotate(2deg); }
+}
+
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-120%) rotate(18deg); opacity: 0; }
+  25% { opacity: 0.8; }
+  60%, 100% { transform: translateX(140%) rotate(18deg); opacity: 0; }
+}
+
+@keyframes float-heart {
+  0% {
+    transform: translate3d(0, 25px, 0) rotate(-10deg) scale(0.7);
+    opacity: 0;
+  }
+  15%,
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(var(--heart-x, 24px), -120vh, 0) rotate(18deg) scale(1.05);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   prefers-reduced-motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

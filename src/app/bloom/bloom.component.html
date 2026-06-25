@@ -1,0 +1,131 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     BLOOM — 3D pink rose garden reveal
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="bloom-stage">
+
+  <!-- ── Light rays from center ──────────────────────────────── -->
+  <div class="light-rays"></div>
+
+  <!-- ── Shimmer sweep overlay ───────────────────────────────── -->
+  <div class="shimmer-sweep"></div>
+
+  <!-- ── Twinkling sparkle stars ─────────────────────────────── -->
+  <div class="sparkle-stars" id="sparkleStars"></div>
+
+  <!-- ── Soft pink gradient background ────────────────────────── -->
+  <div class="bg-glow"></div>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+  <div class="bg-orb bg-orb-4"></div>
+
+  <!-- ── Floating rose petals (background) ───────────────────── -->
+  <div class="bg-petals" id="bgPetals">
+    @for (petal of bgPetals(); track $index) {
+      <span
+        class="bg-petal"
+        [style.--bp-x]="petal.x + '%'"
+        [style.--bp-delay]="petal.delay + 's'"
+        [style.--bp-dur]="petal.dur + 's'"
+        [style.--bp-size]="petal.size + 'px'"
+        [style.--bp-color]="petal.color"
+      ></span>
+    }
+  </div>
+
+  <!-- ── Floating hearts ─────────────────────────────────────── -->
+  <div class="heart-particles" id="heartParticles">
+    @for (heart of heartParticles(); track $index) {
+      <span
+        class="h-particle"
+        [style.--hx]="heart.x + '%'"
+        [style.--hy]="heart.y + '%'"
+        [style.--h-delay]="heart.delay + 's'"
+        [style.--h-dur]="heart.dur + 's'"
+        [style.--h-size]="heart.size + 'px'"
+      ></span>
+    }
+  </div>
+
+  <!-- ── 3D Rose (center, 40 petals) ────────────────────────── -->
+  <div class="hero-rose-wrap" #heroRoseWrap>
+    <div class="hero-glow"></div>
+    <div class="hero-ring" id="heroRing"></div>
+    <div class="rose-3d-container" id="rose3dContainer"></div>
+    <div class="bouquets" id="bouquets"></div>
+  </div>
+
+  <!-- ── LEFT rose curtain ───────────────────────────────────── -->
+  <div class="curtain curtain-left" #curtainLeft>
+    <div class="curtain-vines"></div>
+    <div class="curtain-grid">
+      @for (rose of leftRoses; track $index) {
+        <div
+          class="c-rose-wrap"
+          [style.--bloom-delay]="rose.delay + 's'"
+          [style.--rose-rot]="rose.rotate + 'deg'"
+          [style.--ox]="rose.offsetX + 'px'"
+          [style.--oy]="rose.offsetY + 'px'"
+        >
+          <div
+            class="c-rose css-rose"
+            [style.font-size]="rose.size + 'rem'"
+          >
+            <div class="rose-layer outer"></div>
+            <div class="rose-layer mid-outer"></div>
+            <div class="rose-layer mid"></div>
+            <div class="rose-layer mid-inner"></div>
+            <div class="rose-layer inner"></div>
+            <div class="rose-core"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ── RIGHT rose curtain ──────────────────────────────────── -->
+  <div class="curtain curtain-right" #curtainRight>
+    <div class="curtain-vines"></div>
+    <div class="curtain-grid">
+      @for (rose of rightRoses; track $index) {
+        <div
+          class="c-rose-wrap"
+          [style.--bloom-delay]="rose.delay + 's'"
+          [style.--rose-rot]="rose.rotate + 'deg'"
+          [style.--ox]="rose.offsetX + 'px'"
+          [style.--oy]="rose.offsetY + 'px'"
+        >
+          <div
+            class="c-rose css-rose"
+            [style.font-size]="rose.size + 'rem'"
+          >
+            <div class="rose-layer outer"></div>
+            <div class="rose-layer mid-outer"></div>
+            <div class="rose-layer mid"></div>
+            <div class="rose-layer mid-inner"></div>
+            <div class="rose-layer inner"></div>
+            <div class="rose-core"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ── Falling petals overlay ──────────────────────────────── -->
+  <div class="falling-petals-overlay" id="fallingPetals">
+    @for (fp of fallingPetals(); track $index) {
+      <span
+        class="fall-petal"
+        [style.--fp-delay]="fp.delay + 's'"
+        [style.--fp-x]="fp.x + '%'"
+        [style.--fp-dur]="fp.dur + 's'"
+        [style.--fp-size]="fp.size + 'px'"
+        [style.--fp-color]="fp.color"
+      ></span>
+    }
+  </div>
+
+  <!-- Centre split vine -->
+  <div class="split-vine"></div>
+
+</div>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#f2a4bb"/>
+      <stop offset="100%" stop-color="#fffaf6"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a1f3d"/>
+      <stop offset="100%" stop-color="#c1456b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Decorative rose -->
+  <text x="600" y="260" text-anchor="middle" font-size="120">🌹</text>
+  <text x="600" y="380" text-anchor="middle" font-family="Georgia,serif" font-size="56" font-weight="bold" fill="url(#textGrad)">Happy Birthday, My Love</text>
+  <text x="600" y="440" text-anchor="middle" font-family="Georgia,serif" font-size="28" fill="#c1456b" font-style="italic">A special note awaits inside...</text>
+  <!-- Decorative corners -->
+  <path d="M20 20 C20 10 30 10 40 20" stroke="#cfa15e" stroke-width="2" fill="none"/>
+  <path d="M1180 20 C1180 10 1170 10 1160 20" stroke="#cfa15e" stroke-width="2" fill="none"/>
+  <path d="M20 610 C20 620 30 620 40 610" stroke="#cfa15e" stroke-width="2" fill="none"/>
+  <path d="M1180 610 C1180 620 1170 620 1160 610" stroke="#cfa15e" stroke-width="2" fill="none"/>
+</svg>

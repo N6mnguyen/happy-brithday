@@ -1,0 +1,11 @@
+@if (currentScreen === 1) {
+  <app-envelope (openComplete)="onEnvelopeOpened()" />
+}
+
+@if (showBloom) {
+  <app-rose-bloom (bloomComplete)="onBloomComplete()" />
+}
+
+@if (currentScreen === 3) {
+  <app-letter />
+}
