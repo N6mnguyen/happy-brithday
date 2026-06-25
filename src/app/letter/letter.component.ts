@@ -94,36 +94,36 @@ export class LetterComponent implements AfterViewInit, OnDestroy {
     // 1) Polaroid photo pops in first
     const polaroid = root.querySelector<HTMLElement>('#polaroidPhoto');
     if (polaroid) {
-      this.timer(200, () => polaroid.classList.add('visible'));
+      this.timer(1, () => polaroid.classList.add('visible'));
     }
 
     // 2) Letter card floats in
     const letterCard = root.querySelector<HTMLElement>('#letterCard');
     if (letterCard) {
-      this.timer(500, () => letterCard.classList.add('visible'));
+      this.timer(80, () => letterCard.classList.add('visible'));
     }
 
     // 3) Stagger text elements inside letter
     const textEls = root.querySelectorAll<HTMLElement>('.animate-text');
     textEls.forEach((el, i) => {
-      this.timer(700 + i * 150, () => el.classList.add('visible'));
+      this.timer(120 + i * 50, () => el.classList.add('visible'));
     });
 
-    // 4) Scroll cue
-    const scrollCue = root.querySelector<HTMLElement>('#scrollCue');
-    if (scrollCue) {
-      this.timer(700 + textEls.length * 150 + 200, () => scrollCue.classList.add('visible'));
-    }
-
-    // 5) Gallery polaroid cards — staggered ngay lập tức, ko cần scroll
+    // 4) Gallery polaroid cards — hiện luôn, ko chờ
     const cards = root.querySelectorAll<HTMLElement>('.polaroid-card');
     cards.forEach((card, i) => {
       const rot = (card as HTMLElement).dataset['rotation'] ?? '0';
-      this.timer(900 + i * 80, () => {
+      this.timer(60 + i * 40, () => {
         (card as HTMLElement).classList.add('visible');
         (card as HTMLElement).style.transform = `rotate(${rot}deg)`;
       });
     });
+
+    // 5) Scroll cue
+    const scrollCue = root.querySelector<HTMLElement>('#scrollCue');
+    if (scrollCue) {
+      this.timer(450, () => scrollCue.classList.add('visible'));
+    }
   }
 
   /* ----------------------------------------------------------------
